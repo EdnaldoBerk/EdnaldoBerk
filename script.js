@@ -1,120 +1,76 @@
-function atualizarMeses(inputId, outputId) {
 
-    const anos = parseInt(document.getElementById(inputId).value);
-
-    if (!isNaN(anos)) {
-
-        const meses = anos * 12;
-
-        document.getElementById(outputId).value = meses;
-
-    }
-
-}
-
-
-
-function calcular() {
-
-    const idadeAnos = parseInt(document.getElementById('idadeAnos').value);
-
-    const idadeMeses = parseInt(document.getElementById('idadeMeses').value);
-
-    const parceiroIdadeAnos = parseInt(document.getElementById('parceiroIdadeAnos').value);
-
-    const parceiroIdadeMeses = parseInt(document.getElementById('parceiroIdadeMeses').value);
-
-    const terceiroIdadeAnos = parseInt(document.getElementById('terceiroIdadeAnos').value) || 0;
-
-    const terceiroIdadeMeses = parseInt(document.getElementById('terceiroIdadeMeses').value) || 0;
-
-
-
-    // Converter idades para meses totais e depois arredondar para cima para anos
-
-    const idadeTotalMeses = (idadeAnos * 12) + idadeMeses;
-
-    const parceiroIdadeTotalMeses = (parceiroIdadeAnos * 12) + parceiroIdadeMeses;
-
-    const terceiroIdadeTotalMeses = (terceiroIdadeAnos * 12) + terceiroIdadeMeses;
-
-
-
-    const idadeTotal = Math.ceil(idadeTotalMeses / 12);
-
-    const parceiroIdadeTotal = Math.ceil(parceiroIdadeTotalMeses / 12);
-
-    const terceiroIdadeTotal = Math.ceil(terceiroIdadeTotalMeses / 12);
-
-
-
-    // Restrição por lei: pessoas acima de 100 anos não podem namorar
-
-    if (idadeTotal > 100 || parceiroIdadeTotal > 100 || terceiroIdadeTotal > 100) {
-
-        document.getElementById('resultado').innerText = "Pessoas acima de 100 anos não podem namorar, conforme a lei 8.112 da Constituição Federal.";
-
-        return;
-
-    }
-
-
-
-    // Restrição de idade: não pode namorar com menos de 13 anos
-
-    if (idadeTotal <= 13) {
-
-        document.getElementById('resultado').innerText = "Você não pode namorar, pois tem menos de 13 anos.";
-
-        return;
-
-    }
-
-
-
-    // Calcular a idade mínima para namoro
-
-    let idadeMinimaNamoro = Math.floor(idadeTotal / 2) + 7;
-
-    if ((idadeTotal % 2) != 0) {
-
-        idadeMinimaNamoro = Math.floor(idadeTotal / 2) + 7;
-
-    }
-
-    let idadeMaximaNamoro = (idadeTotal - 7) * 2;
-
-
-
-    // Comparação de idade do parceiro
-
-    const podeNamorarParceiro = parceiroIdadeTotal >= idadeMinimaNamoro && parceiroIdadeTotal <= idadeMaximaNamoro;
-
-
-
-    // Comparação de idade do terceiro parceiro
-
-    const podeNamorarTerceiro = terceiroIdadeAnos === 0 || (terceiroIdadeTotal >= idadeMinimaNamoro && terceiroIdadeTotal <= idadeMaximaNamoro);
-
-
-
-    let textoResultado = `Idade mínima para namoro: ${idadeMinimaNamoro} anos.\n`;
-
-    textoResultado += `Idade máxima para namoro: ${idadeMaximaNamoro} anos.\n`;
-
-    textoResultado += `Você ${podeNamorarParceiro ? "pode" : "não pode"} namorar com seu parceiro.\n`;
-
-
-
-    if (terceiroIdadeAnos || terceiroIdadeMeses) {
-
-        textoResultado += `Você ${podeNamorarTerceiro ? "pode" : "não pode"} namorar com seu terceiro parceiro.`;
-
-    }
-
-
-
-    document.getElementById('resultado').innerText = textoResultado;
-
-}
-
+        function atualizarMeses(idadeAnosId, idadeMesesId) {
+            const anos = document.getElementById(idadeAnosId).value;
+            const meses = anos * 12;
+            document.getElementById(idadeMesesId).value = meses;
+        }
+
+        document.getElementById('suaIdadeAnos').addEventListener('input', function() {
+            atualizarMeses('suaIdadeAnos', 'suaIdadeMeses');
+        });
+
+        document.getElementById('idadeParceiroAnos').addEventListener('input', function() {
+            atualizarMeses('idadeParceiroAnos', 'idadeParceiroMeses');
+        });
+
+        document.getElementById('idadeTerceiroAnos').addEventListener('input', function() {
+            atualizarMeses('idadeTerceiroAnos', 'idadeTerceiroMeses');
+        });
+
+        function calcularNamoro() {
+            const suaIdadeAnos = parseInt(document.getElementById('suaIdadeAnos').value);
+            const suaIdadeMeses = parseInt(document.getElementById('suaIdadeMeses').value);
+            const idadeParceiroAnos = parseInt(document.getElementById('idadeParceiroAnos').value);
+            const idadeParceiroMeses = parseInt(document.getElementById('idadeParceiroMeses').value);
+            const idadeTerceiroAnos = parseInt(document.getElementById('idadeTerceiroAnos').value);
+            const idadeTerceiroMeses = parseInt(document.getElementById('idadeTerceiroMeses').value);
+
+            // Convertendo anos e meses para total de meses e arredondando para cima
+            const totalMesesSuaIdade = Math.ceil(suaIdadeAnos * 12 + suaIdadeMeses);
+            const totalMesesParceiro = Math.ceil(idadeParceiroAnos * 12 + idadeParceiroMeses);
+            const totalMesesTerceiro = idadeTerceiroAnos && idadeTerceiroMeses ? Math.ceil(idadeTerceiroAnos * 12 + idadeTerceiroMeses) : null;
+
+            // Convertendo de volta para anos e meses
+            const totalAnosSuaIdade = Math.ceil(totalMesesSuaIdade / 12);
+            const totalAnosParceiro = Math.ceil(totalMesesParceiro / 12);
+            const totalAnosTerceiro = totalMesesTerceiro ? Math.ceil(totalMesesTerceiro / 12) : null;
+
+            // Calculando a idade mínima para namoro
+            const idadeMinNamoro = Math.floor(suaIdadeAnos / 2) + 7;
+            const mesesMinNamoro = idadeMinNamoro * 12;
+            // Calculando a idade máxima para namoro
+            const idadeMaxNamoro = (totalAnosSuaIdade - 7) * 2;
+
+            let resultados = `Sua idade mínima para namoro é ${idadeMinNamoro} anos.<br>`;
+            resultados += `Sua idade máxima para namoro é ${idadeMaxNamoro} anos.<br>`;
+
+            // Verificando se o casal pode namorar
+            if (totalAnosSuaIdade <= 100 && totalAnosParceiro <= 100) {
+                if (totalAnosParceiro >= idadeMinNamoro && totalAnosParceiro <= idadeMaxNamoro) {
+                    if (suaIdadeAnos >= 13 && idadeParceiroAnos >= 13) {
+                        resultados += `Você e seu parceiro(a) podem namorar.<br>`;
+                    } else {
+                        resultados += `Seu parceiro(a) é muito jovem para namorar.<br>`;
+                    }
+                }
+            } else {
+                resultados += `Um dos parceiros tem mais de 100 anos, não é permitido.<br>`;
+            }
+
+            // Verificando se o trisal pode namorar
+            if (totalAnosTerceiro) {
+                if (totalAnosSuaIdade <= 100 && totalAnosTerceiro <= 100) {
+                    if (totalAnosTerceiro >= idadeMinNamoro && totalAnosTerceiro <= idadeMaxNamoro) {
+                        if (suaIdadeAnos >= 13 && idadeParceiroAnos >= 13 && idadeTerceiroAnos >= 13) {
+                            resultados += `Você, seu parceiro(a) e o terceiro podem namorar.<br>`;
+                        } else {
+                            resultados += `Você, seu parceiro(a) ou o terceiro são muito jovens para namorar.<br>`;
+                        }
+                    }
+                } else {
+                    resultados += `Um dos parceiros tem mais de 100 anos, não é permitido.<br>`;
+                }
+            }
+
+            document.getElementById('resultados').innerHTML = resultados;
+        }
