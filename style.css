@@ -1,0 +1,84 @@
+body {
+    background-color: #ffe6f2;
+    font-family: Arial, sans-serif;
+    color: #ff0066;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center;
+}
+
+h1 {
+    color: #ff1493;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="number"] {
+    width: calc(100% - 12px);
+    padding: 5px;
+    border: 2px solid #ff1493;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+button {
+    background-color: #ff1493;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff69b4;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #ff1493;
+    margin-top: 20px;
+}
+
+#resultado {
+    background-color: #ffe6f2;
+    border: 2px solid #ff1493;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+.container:before {
+    content: "❤️";
+    display: block;
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #ff1493;
+}
