@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Idade para Namoro</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Idade para Namoro</h1>
+        <div class="input-group">
+            <label for="idadeAnos">Sua idade (anos):</label>
+            <input type="number" id="idadeAnos" oninput="atualizarMeses('idadeAnos', 'idadeMeses')">
+            <label for="idadeMeses">Sua idade (meses):</label>
+            <input type="number" id="idadeMeses">
+        </div>
+        <div class="input-group">
+            <label for="parceiroIdadeAnos">Idade do parceiro (anos):</label>
+            <input type="number" id="parceiroIdadeAnos" oninput="atualizarMeses('parceiroIdadeAnos', 'parceiroIdadeMeses')">
+            <label for="parceiroIdadeMeses">Idade do parceiro (meses):</label>
+            <input type="number" id="parceiroIdadeMeses">
+        </div>
+        <div class="input-group">
+            <label for="terceiroIdadeAnos">Idade do terceiro parceiro (opcional) (anos):</label>
+            <input type="number" id="terceiroIdadeAnos" oninput="atualizarMeses('terceiroIdadeAnos', 'terceiroIdadeMeses')">
+            <label for="terceiroIdadeMeses">Idade do terceiro parceiro (opcional) (meses):</label>
+            <input type="number" id="terceiroIdadeMeses">
+        </div>
+        <button onclick="calcular()">Calcular</button>
+        <div>
+            <h2>Resultado:</h2>
+            <p id="resultado"></p>
+        </div>
+    </div>
+</body>
+</html>
